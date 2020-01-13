@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var accepts = require('accepts')
+const bodyParser = require('body-parser');
 
 const { createEventAdapter } = require('@slack/events-api');
 const slackSigningSecret = '22172351637aea2e191b0458a0ca5edb';
@@ -28,18 +29,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/' , slackEvents.requestListener());
 
-
+app.use(bodyParser());
 
 
 // Attach listeners to events by Slack Event "type". See: https://api.slack.com/events/message.im
 slackEvents.on('message', (event) => {
+
+  var challenge = req.body.challenge;
+
   console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
+
+  res.json({"challenge":challenge});
+});
+
+
+slackEvents.on('error', (error) => {
+  console.log(error.name); // TypeError
 });
 
 (async () => {
   const server = await slackEvents.start(port);
   console.log(`Listening for events on ${server.address().port}`);
 })();
+
+
+
 
 
 /*app.listen(port, () => {
