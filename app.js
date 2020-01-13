@@ -29,7 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/gu' , slackEvents.requestListener());
 
-app.use(bodyParser());
 
 
 // Attach listeners to events by Slack Event "type". See: https://api.slack.com/events/message.im
