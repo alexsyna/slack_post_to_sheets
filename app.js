@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use('/' , slackEvents.requestListener());
+app.use('/gu' , slackEvents.requestListener());
 
 app.use(bodyParser());
 
