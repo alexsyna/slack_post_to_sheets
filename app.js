@@ -35,8 +35,8 @@ app.use(bodyParser());
 // Attach listeners to events by Slack Event "type". See: https://api.slack.com/events/message.im
 slackEvents.on('message', (event) => {
 
-  var challenge = req.body.challenge;
 
+  console.log('Received the SLACK CALL ALEX');
   console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
 
   res.json({"challenge":challenge});
