@@ -27,8 +27,9 @@ slackEvents.on('message', (event) => {
 
 
   console.log('=============================================');
-  console.log(event);
+  console.log(event.attachments[0].fields);
   console.log('=============================================');
+  console.log(event);
   console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
 
 
