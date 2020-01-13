@@ -44,7 +44,8 @@ slackEvents.on('message', (event) => {
 
 
 slackEvents.on('error', (error) => {
-  console.log(error.name); // TypeError
+  console.log(error.name);
+  console.log(error)// TypeError
 });
 
 (async () => {
