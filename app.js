@@ -31,7 +31,7 @@ slackEvents.on('message', (event) => {
   console.log('=============================================');
   console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
 
-  res.json({"challenge":challenge});
+
 });
 
 
