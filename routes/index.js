@@ -16,7 +16,7 @@ router.post('/posttosheets', function(req, res, next) {
   var challenge = req.body.challenge;
 
 
-  res.json("challenge" , challenge);
+  res.send(challenge);
 });
 
 module.exports = router;
