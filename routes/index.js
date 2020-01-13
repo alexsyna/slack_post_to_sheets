@@ -6,7 +6,7 @@ var moment = require('moment');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.json('index', { title: 'Express' });
+  res.render('index.hbs', { title: 'Express' });
 
 
 
