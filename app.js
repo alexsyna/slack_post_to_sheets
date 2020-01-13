@@ -26,7 +26,9 @@ app.use(bodyParser.json());
 slackEvents.on('message', (event) => {
 
 
-  console.log('Received the SLACK CALL ALEX');
+  console.log('=============================================');
+  console.log(event);
+  console.log('=============================================');
   console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
 
   res.json({"challenge":challenge});
