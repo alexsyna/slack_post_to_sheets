@@ -11,7 +11,7 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 const port = 4000;
-var con;
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -20,14 +20,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
-app.use(function (req, res, next) {
-
-  req.con = con;
-
-  next();
-
-});
 
 
 
