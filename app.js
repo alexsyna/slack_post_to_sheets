@@ -131,9 +131,12 @@ console.log('OUTSIDE GS api' +  username);
           }
         });*/
 
+    var username = event.user;
+    var timestamp = event.ts;
+    var a1 = event.attachments[0].fields[0].title+' : '+event.attachments[0].fields[0].value;
+    var a2 = event.attachments[0].fields[1].title+' : '+event.attachments[0].fields[1].value;
+    var a3 = event.attachments[0].fields[2].title+' : '+event.attachments[0].fields[2].value;
 
-    console.log(username + 'IN gs api');
-  console.log(event.attachments[0].fields[1].title + 'IN gs API 2');
     let values = [
       [
         // Cell values ...
