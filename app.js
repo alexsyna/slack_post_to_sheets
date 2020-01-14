@@ -130,6 +130,8 @@ var a3 = event.attachments[0].fields[2].title+' : '+event.attachments[0].fields[
     });*/
 
 
+    console.log(username + 'in gs api');
+
     let values = [
       [
         // Cell values ...
