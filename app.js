@@ -41,6 +41,8 @@ var a1 = event.attachments[0].fields[0].title+' : '+event.attachments[0].fields[
 var a2 = event.attachments[0].fields[1].title+' : '+event.attachments[0].fields[1].value;
 var a3 = event.attachments[0].fields[2].title+' : '+event.attachments[0].fields[2].value;
 
+
+console.log('OUTSIDE GS api' +  username);
 // If modifying these scopes, delete token.json.
   const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 // The file token.json stores the user's access and refresh tokens, and is
@@ -52,7 +54,7 @@ var a3 = event.attachments[0].fields[2].title+' : '+event.attachments[0].fields[
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), function listMajors(auth, username, timestamp, a1,a2,a3 ) {
+    authorize(JSON.parse(content), function listMajors(username, timestamp, a1,a2,a3 ) {
           const sheets = google.sheets({version: 'v4', auth});
           /*    sheets.spreadsheets.values.get({
                 spreadsheetId: '1wh6qv6FkEGfF3wOpehOYxKubRA0jJq3uU6PDNabGHC4',
