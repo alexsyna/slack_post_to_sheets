@@ -110,7 +110,7 @@ var a3 = event.attachments[2].fields.title+' : '+event.attachments[2].fields.val
    * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
    * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
    */
-  function listMajors(username, timestamp, a1,a2,a3 ) {
+  function listMajors(auth, username, timestamp, a1,a2,a3 ) {
     const sheets = google.sheets({version: 'v4', auth});
     sheets.spreadsheets.values.get({
       spreadsheetId: '1wh6qv6FkEGfF3wOpehOYxKubRA0jJq3uU6PDNabGHC4',
