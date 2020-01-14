@@ -129,7 +129,7 @@ slackEvents.on('message', (event) => {
     let values = [
       [
         // Cell values ...
-        event.user , 'timestamp' , 'Α1' , 'Α2' , 'A3'
+        event.user , event.ts , event.attachments[0].fields.title+' : '+event.attachments[0].fields.value , event.attachments[1].fields.title+' : '+event.attachments[1].fields.value , event.attachments[2].fields.title+' : '+event.attachments[2].fields.value
       ]
       // Additional rows ...
     ];
