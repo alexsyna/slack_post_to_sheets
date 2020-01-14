@@ -35,7 +35,11 @@ slackEvents.on('message', (event) => {
   console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
 
 
-
+var username = event.user;
+var timestamp = event.ts;
+var a1 = event.attachments[0].fields.title+' : '+event.attachments[0].fields.value;
+var a2 = event.attachments[1].fields.title+' : '+event.attachments[1].fields.value;
+var a3 = event.attachments[2].fields.title+' : '+event.attachments[2].fields.value;
 
 // If modifying these scopes, delete token.json.
   const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
@@ -48,7 +52,7 @@ slackEvents.on('message', (event) => {
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), listMajors(event));
+    authorize(JSON.parse(content), listMajors(username, timestamp, a1,a2,a3));
   });
 
   /**
@@ -106,7 +110,7 @@ slackEvents.on('message', (event) => {
    * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
    * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
    */
-  function listMajors(auth ,event ) {
+  function listMajors(username, timestamp, a1,a2,a3 ) {
     const sheets = google.sheets({version: 'v4', auth});
     sheets.spreadsheets.values.get({
       spreadsheetId: '1wh6qv6FkEGfF3wOpehOYxKubRA0jJq3uU6PDNabGHC4',
@@ -129,7 +133,7 @@ slackEvents.on('message', (event) => {
     let values = [
       [
         // Cell values ...
-        event.user , event.ts , event.attachments[0].fields.title+' : '+event.attachments[0].fields.value , event.attachments[1].fields.title+' : '+event.attachments[1].fields.value , event.attachments[2].fields.title+' : '+event.attachments[2].fields.value
+       username , timestamp , a1 , a2 , a3
       ]
       // Additional rows ...
     ];
