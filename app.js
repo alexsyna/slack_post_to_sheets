@@ -54,58 +54,7 @@ console.log('OUTSIDE GS api' +  username);
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), function listMajors(username, timestamp, a1,a2,a3 ) {
-          const sheets = google.sheets({version: 'v4', auth});
-          /*    sheets.spreadsheets.values.get({
-                spreadsheetId: '1wh6qv6FkEGfF3wOpehOYxKubRA0jJq3uU6PDNabGHC4',
-                range: 'Sheet1!A2:E',
-              }, (err, res) => {
-                if (err) return console.log('The API returned an error: ' + err);
-                const rows = res.data.values;
-                if (rows.length) {
-                  console.log('Name, Major:');
-                  // Print columns A and E, which correspond to indices 0 and 4.
-                  rows.map((row) => {
-                    console.log(`${row[0]}, ${row[4]}`);
-                  });
-                } else {
-                  console.log('No data found.');
-                }
-              });*/
-
-
-          console.log(username + 'IN gs api');
-
-          let values = [
-            [
-              // Cell values ...
-              username , timestamp , a1 , a2 , a3
-            ]
-            // Additional rows ...
-          ];
-          let resource = {
-            values,
-          };
-          sheets.spreadsheets.values.append({
-            spreadsheetId:'1wh6qv6FkEGfF3wOpehOYxKubRA0jJq3uU6PDNabGHC4',
-            range: 'Sheet1!A2:E',
-            valueInputOption: 'USER_ENTERED',
-            resource,
-          }, (err, result) => {
-            if (err) {
-              // Handle error.
-              console.log(err);
-            } else {
-              console.log(`${result.updates} cells appended.`);
-            }
-          });
-
-
-        }
-
-
-
-        );
+    authorize(JSON.parse(content), listMajors(auth , username, timestamp, a1,a2,a3 ));
   });
 
   /**
@@ -163,7 +112,54 @@ console.log('OUTSIDE GS api' +  username);
    * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
    * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
    */
+  function listMajors(auth , username, timestamp, a1,a2,a3 ) {
+    const sheets = google.sheets({version: 'v4', auth});
+    /*    sheets.spreadsheets.values.get({
+          spreadsheetId: '1wh6qv6FkEGfF3wOpehOYxKubRA0jJq3uU6PDNabGHC4',
+          range: 'Sheet1!A2:E',
+        }, (err, res) => {
+          if (err) return console.log('The API returned an error: ' + err);
+          const rows = res.data.values;
+          if (rows.length) {
+            console.log('Name, Major:');
+            // Print columns A and E, which correspond to indices 0 and 4.
+            rows.map((row) => {
+              console.log(`${row[0]}, ${row[4]}`);
+            });
+          } else {
+            console.log('No data found.');
+          }
+        });*/
 
+
+    console.log(username + 'IN gs api');
+  console.log(event.attachments[0].fields[1].title + 'IN gs API 2');
+    let values = [
+      [
+        // Cell values ...
+        username , timestamp , a1 , a2 , a3
+      ]
+      // Additional rows ...
+    ];
+    let resource = {
+      values,
+    };
+    sheets.spreadsheets.values.append({
+      spreadsheetId:'1wh6qv6FkEGfF3wOpehOYxKubRA0jJq3uU6PDNabGHC4',
+      range: 'Sheet1!A2:E',
+      valueInputOption: 'USER_ENTERED',
+      resource,
+    }, (err, result) => {
+      if (err) {
+        // Handle error.
+        console.log(err);
+      } else {
+        console.log(`${result.updates} cells appended.`);
+      }
+    });
+
+
+  }
 
 
 });
