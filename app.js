@@ -37,9 +37,9 @@ slackEvents.on('message', (event) => {
 
 var username = event.user;
 var timestamp = event.ts;
-var a1 = event.attachments[0].fields.title+' : '+event.attachments[0].fields.value;
-var a2 = event.attachments[1].fields.title+' : '+event.attachments[1].fields.value;
-var a3 = event.attachments[2].fields.title+' : '+event.attachments[2].fields.value;
+var a1 = event.attachments[0].fields[0].title+' : '+event.attachments[0].fields[0].value;
+var a2 = event.attachments[1].fields[1].title+' : '+event.attachments[1].fields[1].value;
+var a3 = event.attachments[2].fields[2].title+' : '+event.attachments[2].fields[2].value;
 
 // If modifying these scopes, delete token.json.
   const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
