@@ -9,6 +9,10 @@ router.get('/', function(req, res, next) {
   res.render('index.hbs', { title: 'GU GROUP slack API' });
 });
 
+const fs = require('fs');
+const readline = require('readline');
+const {google} = require('googleapis');
+
 
 
 router.post('/posttosheets', function(req, res, next) {
