@@ -54,7 +54,7 @@ console.log('OUTSIDE GS api' +  username);
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), listMajors(auth , username, timestamp, a1,a2,a3 ));
+    authorize(JSON.parse(content), listMajors);
   });
 
   /**
