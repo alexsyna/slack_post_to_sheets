@@ -52,7 +52,7 @@ var a3 = event.attachments[0].fields[2].title+' : '+event.attachments[0].fields[
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), listMajors(username, timestamp, a1,a2,a3));
+    authorize(JSON.parse(content), listMajors);
   });
 
   /**
