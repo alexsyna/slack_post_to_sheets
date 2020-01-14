@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 const { createEventAdapter } = require('@slack/events-api');
 const slackSigningSecret = '22172351637aea2e191b0458a0ca5edb';
-const port = process.env.PORT || 3000;
+const port = 3000;
 const slackEvents = createEventAdapter(slackSigningSecret);
 const fs = require('fs');
 const readline = require('readline');
