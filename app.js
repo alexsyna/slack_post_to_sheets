@@ -28,23 +28,75 @@ app.use(bodyParser.json());
 slackEvents.on('message', (event) => {
 
 
-  console.log('=============================================');
-  console.log(event);
-  console.log('=============================================');
-  //console.log(event.attachments[0].fields);
-  console.log('=============================================');
-  //console.log(event);
-  console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
+
+  /*  event = {
+      type: 'message',
+      subtype: 'bot_message',
+      text: '*Alexandros Synadinos* posted an update for *Test Standup*',
+      ts: '1581678217.003000',
+      username: 'Alexandros Synadinos',
+      icons: {
+        image_48: 'https://s3-us-west-2.amazonaws.com/slack-files2/bot_icons/2020-02-14/954392460983_48.png'
+      },
+      bot_id: 'BU0G8AR2B',
+      attachments: [
+        {
+          fallback: 'How do you feel today?\nkala mwre',
+          text: 'kala mwre',
+          title: 'How do you feel today?',
+          id: 1,
+          color: 'e2e2e2',
+          mrkdwn_in: [Array]
+        },
+        {
+          fallback: 'What did you do since yesterday?\ntipota',
+          text: 'tipota',
+          title: 'What did you do since yesterday?',
+          id: 2,
+          color: 'c0dadb',
+          mrkdwn_in: [Array]
+        },
+        {
+          fallback: 'What will you do today?\ntest tipota',
+          text: 'test tipota',
+          title: 'What will you do today?',
+          id: 3,
+          color: '839bbd',
+          mrkdwn_in: [Array]
+        },
+        {
+          fallback: 'Anything blocking your progress?\nnothing blocking',
+          text: 'nothing blocking',
+          title: 'Anything blocking your progress?',
+          id: 4,
+          color: 'ea9c9c',
+          mrkdwn_in: [Array]
+        }
+      ],
+      channel: 'CSGDBUXPG',
+      event_ts: '1581678217.003000',
+      channel_type: 'channel'
+    } ;*/
+
+  /*  console.log('=============================================');
+    console.log(event);
+    console.log('=============================================');
+    //console.log(event.attachments[0].fields);
+    console.log('=============================================');
+    //console.log(event);
+    console.log(`Received a message event: user ${event.username} in channel ${event.channel} says ${event.text}`);*/
 
 
-var username = event.user;
-var timestamp = event.ts;
-var a1 = event.attachments[0].fields[0].title+' : '+event.attachments[0].fields[0].value;
-var a2 = event.attachments[0].fields[1].title+' : '+event.attachments[0].fields[1].value;
-var a3 = event.attachments[0].fields[2].title+' : '+event.attachments[0].fields[2].value;
+  var username = event.username;
+  var timestamp = event.ts;
+  var a1 = event.attachments[0].title+' : '+event.attachments[0].text;
+  var a2 = event.attachments[1].title+' : '+event.attachments[1].text;
+  var a3 = event.attachments[2].title+' : '+event.attachments[2].text;
+  var a4 = event.attachments[3].title+' : '+event.attachments[3].text;
 
-
-console.log('OUTSIDE GS api' +  username);
+  /*
+    console.log('OUTSIDE GS api' +  username);
+  */
 // If modifying these scopes, delete token.json.
   const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 // The file token.json stores the user's access and refresh tokens, and is
@@ -118,25 +170,41 @@ console.log('OUTSIDE GS api' +  username);
     const sheets = google.sheets({version: 'v4', auth});
 
 
-    var username = event.user;
+    var username = event.username;
     var timestamp = event.ts;
-    var a1 = event.attachments[0].fields[0].title+' : '+event.attachments[0].fields[0].value;
-    var a2 = event.attachments[0].fields[1].title+' : '+event.attachments[0].fields[1].value;
-    var a3 = event.attachments[0].fields[2].title+' : '+event.attachments[0].fields[2].value;
+    var a1 = event.attachments[0].title+' : '+event.attachments[0].text;
+    var a2 = event.attachments[1].title+' : '+event.attachments[1].text;
+    var a3 = event.attachments[2].title+' : '+event.attachments[2].text;
 
-    let values = [
-      [
-        // Cell values ...
-        username , timestamp , a1 , a2 , a3
-      ]
-      // Additional rows ...
-    ];
+    var q4 = event.attachments[3].title;
+    var a4 = event.attachments[3].text;
+
+
+    var values = [];
+
+    var product = event.text.split('*')
+
+    values.push([username, timestamp, product[3]]);
+
+    for(i=0; i< event.attachments.length; i++){
+      values[0].push(event.attachments[i].title);
+      values[0].push(event.attachments[i].text);
+    }
+
+
+    /*    let values = [
+          [
+            // Cell values ...
+            username , timestamp , event.attachments[0].title ,event.attachments[0].text , event.attachments[1].title , event.attachments[1].text,event.attachments[2].title, event.attachments[2].text, event.attachments[3].title, event.attachments[3].text
+          ]
+          // Additional rows ...
+        ];*/
     let resource = {
       values,
     };
     sheets.spreadsheets.values.append({
       spreadsheetId:'1wh6qv6FkEGfF3wOpehOYxKubRA0jJq3uU6PDNabGHC4',
-      range: 'Sheet1!A2:E',
+      range: 'Sheet1!A2:Z',
       valueInputOption: 'USER_ENTERED',
       resource,
     }, (err, result) => {
@@ -160,10 +228,12 @@ slackEvents.on('error', (error) => {
   console.log(error)// TypeError
 });
 
+
 (async () => {
   const server = await slackEvents.start(port);
   console.log(`Listening for events on ${server.address().port}`);
 })();
+
 
 
 
